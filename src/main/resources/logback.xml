@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property resource="application.properties"/>
+	
+	<property name="LOG_PATTERN" value="%-5level [%d{HH:mm:ss.SSS}] [%thread] %logger[%method:%line] - %msg%n"/>
+	<property name="LOGBACK_DIR" value="/logs"/>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    	<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${LOG_PATTERN}</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGBACK_DIR}/LINKED_BOARD.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>LINKED_BOARD.%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGBACK_DIR}/LINKED_BOARD_ERROR.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>LINKED_BOARD_ERROR.%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- HMS LOG -->
+	<logger name="com.linkedboard" level="DEBUG"/>
+	
+	<!-- SPRING LOG -->
+	<logger name="org.springframework" level="WARN"/>
+	
+	<!-- APACHE LOG -->
+	<logger name="org.apache" level="ERROR"/>
+	
+	<!-- HIKARI LOG -->
+	<logger name="com.zaxxer.hikari" level="ERROR"/>
+	
+	<!-- QUERY LOG -->
+	<logger name="jdbc" level="OFF"/>
+	<logger name="jdbc.sqlonly" level="OFF"/>
+	<logger name="jdbc.sqltiming" level="DEBUG"/>
+	<logger name="jdbc.audit" level="OFF"/>
+	<logger name="jdbc.resultset" level="DEBUG"/>
+	<logger name="jdbc.resultsettable" level="DEBUG"/>
+	<logger name="jdbc.connection" level="OFF"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+    
+    <root level="ERROR">
+        <appender-ref ref="FILE-ERROR" />
+    </root>
+    
+</configuration>

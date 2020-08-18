@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linkedboard.user.mapper.UserMapper">
+	<!-- 로그인시 사용자 계정을 불러옴 -->
+	<select id="loadUserByUsername" parameterType="string" resultType="com.linkedboard.user.controller.CustomUserDetails">
+		SELECT 
+			U.USERNAME		AS username
+			, U.NAME		AS name
+			, U.PASSWORD	AS password
+			, U.EMAIL		AS email
+			, U.MOBILE		AS mobile
+			, U.STATUS		AS status
+			, U.REG_DT 		AS regDt
+			, U.FAIL_CNT	AS failCnt
+		FROM TB_USER U
+		WHERE U.USERNAME = #{username}
+	</select>
+	
+	<!-- 계정 생성 -->
+	<insert id="createAccount" parameterType="com.linkedboard.user.controller.CustomUserDetails">
+		INSERT INTO TB_USER (
+			USERNAME
+			, NAME
+			, PASSWORD
+			, EMAIL
+			, MOBILE
+		) VALUES (
+			#{username}
+			, #{name}
+			, #{password}
+			, #{email}
+			, #{mobile}
+		)
+	</insert>
+	
+	<!-- 계정에 해당하는 권한을 불러옴 -->
+	<select id="selectAuthority" parameterType="string" resultType="string">
+		SELECT AUTHORITY FROM TB_USER_AUTHORITY WHERE USERNAME = #{username}
+	</select>
+
+	<!-- 권한생성 -->
+	<insert id="createAuthority" parameterType="map">
+		INSERT INTO TB_USER_AUTHORITY (
+			USERNAME
+			, AUTHORITY
+		) VALUES (
+			#{username}
+			, #{authority}
+		)
+	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="getUsernameCount" parameterType="string" resultType="int">
+		SELECT COUNT(1) FROM TB_USER WHERE USERNAME = #{username}
+	</select>
+	
+	<!-- 권한별 메뉴 -->
+	<select id="selectMenu" parameterType="string" resultType="CamelListMap">
+		SELECT 
+			MENU_ID
+			, MENU_NAME
+			, MENU_URL 
+		FROM TB_MENU
+		WHERE AUTHORITY = #{authority}
+		ORDER BY DP_SEQ
+	</select>
+	
+	<!-- 로그인 실패 카운트 업데이트 -->
+	<update id="updateUserLoginFailCount" parameterType="string">
+		<selectKey keyProperty="failCnt" resultType="int" order="AFTER">
+			SELECT FAIL_CNT FROM TB_USER WHERE USERNAME = #{username}
+		</selectKey>
+		UPDATE TB_USER SET
+			<choose>
+				<when test='reset != null and reset != "" and reset.equals("Y")'>
+					FAIL_CNT = 0
+				</when>
+				<otherwise>
+					FAIL_CNT = FAIL_CNT + 1
+				</otherwise>
+			</choose>
+		WHERE USERNAME = #{username}
+	</update>
+	
+	<!-- 사용자 리스트 카운트 -->
+	<sql id="userFromWhere">
+		FROM TB_USER A
+		WHERE A.STATUS != 'D'
+		<if test="totSrch != null and totSrch != ''">
+			AND (
+				A.USERNAME LIKE CONCAT('%', #{totSrch}, '%')
+				OR A.NAME LIKE CONCAT('%', #{totSrch}, '%') 
+			)
+		</if>
+	</sql>
+	<select id="getUserCnt" parameterType="map" resultType="int">
+		SELECT COUNT(1) 
+			<include refid="userFromWhere"/>
+	</select>
+	
+	<!-- 사용자 리스트 -->
+	<select id="selectUser" parameterType="map" resultType="CamelListMap">
+		<include refid="CommonMapper.paginationHeader"/>
+			SELECT 
+				USERNAME
+				, NAME
+				, EMAIL
+				, MOBILE
+				, STATUS
+				, REG_DT
+				, (SELECT COUNT(1) FROM TB_BOARD Z WHERE Z.USERNAME = A.USERNAME AND Z.DEL_YN = 'N') AS BOARD_CNT
+			<include refid="userFromWhere"/>
+				ORDER BY REG_DT DESC
+		<include refid="CommonMapper.paginationFooter"/>
+	</select>
+	
+	<!-- 계정 상태 업데이트 -->
+	<update id="updateUserStatus" parameterType="map">
+		UPDATE TB_USER SET
+			STATUS = #{status}
+		<where>
+			<choose>
+				<when test="usernames != null and usernames.length > 0">
+				<trim ></trim>
+					USERNAME IN 
+					<foreach collection="usernames" item="username" open="(" close=")" separator=",">#{username}</foreach>
+				</when>
+				<otherwise>
+					USERNAME = #{username}
+				</otherwise>
+			</choose>
+		</where>
+	</update>
+</mapper>
