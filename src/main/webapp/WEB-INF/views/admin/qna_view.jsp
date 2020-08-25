@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" 		uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../common/header.jsp" %>
-
+ 
 <body>
 	<div class="main-content">
 		<h1 class="title"><i class="fa fa-check-square-o mr5"></i>문의 상세</h1>

@@ -1,32 +1,14 @@
 package com.linkedboard;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.ServletException;
-
-import org.apache.catalina.Container;
-import org.apache.catalina.Context;
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.catalina.core.StandardContext;
-import org.apache.catalina.startup.Tomcat;
-import org.apache.tomcat.util.descriptor.web.ContextResource;
-import org.assertj.core.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -46,15 +28,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.linkedboard",
-				includeFilters={
-						@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Controller.class)
-						, @ComponentScan.Filter(type=FilterType.ANNOTATION, value=Service.class)
-				},
-				excludeFilters={
-						@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Repository.class)
-						, @ComponentScan.Filter(type=FilterType.ANNOTATION, value=Configuration.class)
-				})
+@ComponentScan(
+		basePackages="com.linkedboard",
+		includeFilters={
+				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Controller.class)},
+		excludeFilters={
+				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Service.class)
+				, @ComponentScan.Filter(type=FilterType.ANNOTATION, value=Repository.class)
+				, @ComponentScan.Filter(type=FilterType.ANNOTATION, value=Configuration.class)
+		}
+)
+@PropertySource("classpath:config.properties")
 @EnableScheduling
 public class ServletContext implements WebMvcConfigurer {
 	
