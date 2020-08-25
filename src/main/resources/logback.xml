@@ -2,9 +2,8 @@
 <configuration>
 
 	<property resource="application.properties"/>
-	
 	<property name="LOG_PATTERN" value="%-5level [%d{HH:mm:ss.SSS}] [%thread] %logger[%method:%line] - %msg%n"/>
-	<property name="LOGBACK_DIR" value="/logs"/>
+	<property name="LOGBACK_DIR" value="/home/stamboard/linkedboard/logs"/>
 	
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     	<layout class="ch.qos.logback.classic.PatternLayout">
