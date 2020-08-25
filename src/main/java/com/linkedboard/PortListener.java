@@ -7,19 +7,22 @@ import org.springframework.boot.web.servlet.context.ServletWebServerApplicationC
 import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+import com.linkedboard.utils.GetPropertyUtils;
 
 @Component
 public class PortListener implements ApplicationListener<ServletWebServerInitializedEvent> {
     @Override
     public void onApplicationEvent(ServletWebServerInitializedEvent event) {
+    	String docbase = GetPropertyUtils.getProperty("tomcat.docbase.dir");
+    	String hostName = GetPropertyUtils.getProperty("tomcat.host.name");
+    	
         ServletWebServerApplicationContext applicationContext = event.getApplicationContext();
-        
         
         TomcatWebServer tomcatWebServer = (TomcatWebServer) applicationContext.getWebServer();
         Tomcat tomcat = tomcatWebServer.getTomcat();
-        Host host = tomcat.getHost();
-        host.setName("localhost");
+        Host host = tomcat.getHost(); 
+        host.setName(hostName);
         
-        tomcat.addWebapp(host, "/upload", "D:/linkedboard/docbase/upload");
+        tomcat.addWebapp(host, "/upload", docbase);
     }
 }
