@@ -7,7 +7,7 @@ Common.alert = function(message,callback) {
 	$div +='	<div class="modal">';
 	$div +='		<div><a href="javascript:void(0);" class="modal-close"><i class="fa fa-times" aria-hidden="true"></i></a></div>';
 	$div +='		<div class="txt-wrap center">';
-	$div +='			<p>' + message + '</p>';
+	$div +=`			<p>${message}</p>`;
 	$div +='			<a href="javascript:void(0);" class="btn modal-ok right m0">확인</a>';
 	$div +='		</div>';
 	$div +='	</div><br><br>';
@@ -40,7 +40,7 @@ Common.confirm = function(message, confirmFunction, cancelFunction) {
 	$div +='	<div class="modal">';
 	$div +='		<div><a href="javascript:void(0);" class="modal-close"><i class="fa fa-times" aria-hidden="true"></i></a></div>';
 	$div +='		<div class="txt-wrap center">';
-	$div +='			<p>' + message + '</p>';
+	$div +=`			<p>${message}</p>`;
 	$div +='			<div class="btn-wrap">';
 	$div +='				<a href="javascript:void(0);" class="modal-yes btn left">예</a>';
 	$div +='				<a href="javascript:void(0);" class="modal-no btn right">아니오</a>';
@@ -134,7 +134,7 @@ Common.formValidator = function( selector) {
 					if( v == null || v == '') {
 						var title = $self.attr('title');
 						if( !title) title = '해당';
-						Common.alert(title + '값은 필수입니다.', function() {
+						Common.alert(`${title} 값은 필수입니다.`, function() {
 							$self.focus();
 						});
 						flag = false;

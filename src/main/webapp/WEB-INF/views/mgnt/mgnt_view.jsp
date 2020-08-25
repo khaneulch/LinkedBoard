@@ -77,7 +77,7 @@
 										</td>
 									</tr>
 									<c:if test="${fn:length(commentList) == idx.count and idx.count > 10}">
-										<tr class="bg-l-brown"><td colspan="2" class="al-center"><a href="javascript:void(0)" onclick="moreComm(this);">더보기<i class="fa fa-arrow-down ml5"></i></a></td></tr>
+										<tr class="bg-l-brown"><td colspan="3" class="al-center"><a href="javascript:void(0)" onclick="moreComm(this);">더보기<i class="fa fa-arrow-down ml5"></i></a></td></tr>
 									</c:if>					
 								</c:forEach>
 							</c:when>

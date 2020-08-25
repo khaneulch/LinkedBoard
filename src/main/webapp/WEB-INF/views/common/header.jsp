@@ -6,7 +6,7 @@
 
 <script type="text/javascript" src="/content/board/js/mgnt-event.js"></script>
 
-<div class="header-content">
+<div class="header-content"> 
 	<div class="header-inside">
 		<c:if test="${fn:indexOf(pageContext.request.contextPath, '/user') == -1}">
 			<div class="left">

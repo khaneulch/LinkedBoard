@@ -2,9 +2,7 @@ package com.linkedboard.mgnt.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -91,7 +89,7 @@ public class MgntController {
 		params.put("regIp", request.getRemoteAddr());
 		params.put("adminYn", "Y");
 		service.insertBoardContent(params, mRequest.getFile("mgntFile"));
-		return "redirect:/board/mgnt/list?boardId=" + params.get("boardId");
+		return "redirect:/board/mgnt/view?boardId=" + params.get("boardId") + "&contentId=" + params.get("contentId");
 	}
 	
 	/**
