@@ -3,13 +3,13 @@
 <%@ taglib prefix="fn" 		uri="http://java.sun.com/jsp/jstl/functions" %> 
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175152362-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175164061-1"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
 	
-	  gtag('config', 'UA-175152362-1');
+	  gtag('config', 'UA-175164061-1');
 	</script>
 	
 	<meta charset="utf-8" />

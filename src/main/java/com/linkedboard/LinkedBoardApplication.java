@@ -7,14 +7,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.PropertySource;
 
-@PropertySource("classpath:/config.properties")
 @SpringBootApplication
-public class LinkedBoardApplication extends SpringBootServletInitializer {
+public class LinkedBoardApplication {
 	
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ServletContext.class);
-    }
+//	@Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(ServletContext.class);
+//    }
 
 	public static void main(String[] args) throws LifecycleException {
 		SpringApplication.run(LinkedBoardApplication.class, args);
