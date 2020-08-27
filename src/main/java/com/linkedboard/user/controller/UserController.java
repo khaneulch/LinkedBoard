@@ -1,5 +1,6 @@
 package com.linkedboard.user.controller;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +21,7 @@ import com.linkedboard.user.service.UserService;
 import com.linkedboard.utils.JsonView;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping({"/user", "/"})
 public class UserController {
 	
 	@Autowired
@@ -60,13 +62,24 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/login")
+	@RequestMapping({"/login", ""})
 	public String login(Model model, HttpServletRequest request) {
 		
 		// 이미 로그인된 경우 메인으로 리다이렉트
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if ( auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-		    return "redirect:/main";
+			String redirectUrl = "redirect:/board/main";
+			if( auth != null && auth.isAuthenticated()) {
+				
+				Collection<? extends GrantedAuthority> iter = auth.getAuthorities();
+				for( GrantedAuthority authority : iter) {
+					if( authority.getAuthority().equals("ROLE_ADMIN")) {
+						redirectUrl = "redirect:/admin/main";
+					}
+				}
+			}
+			
+		    return redirectUrl;
 		}
 		
 		HttpSession session = request.getSession();

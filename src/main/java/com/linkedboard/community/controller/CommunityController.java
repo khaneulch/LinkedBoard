@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.linkedboard.community.service.CommunityService;
+import com.linkedboard.user.service.UserService;
 import com.linkedboard.utils.OtpUtils;
 import com.linkedboard.utils.PaginationUtils;
 
@@ -23,8 +24,12 @@ public class CommunityController {
 	@Autowired
 	CommunityService service;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    void PasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 	
 	/**
 	 * 게시글 리스트

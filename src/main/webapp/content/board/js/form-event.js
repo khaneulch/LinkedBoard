@@ -50,14 +50,19 @@ function fileAdd() {
 /* ID 중복체크 */
 function checkDuplicateId( selector) {
 	if( !selector) selector = '#username';
-	var resp = Common.getAjaxCall('/user/duplicate', {username : $( selector).val()});
-	if( resp && resp.isSuccess) {
-		Common.alert('사용가능한 아이디입니다.');
-		$( selector).siblings('.warning').addClass('folding');
+	var value = $( selector).val();
+	if( value.trim()) {
+		var resp = Common.getAjaxCall('/user/duplicate', {username : value});
+		if( resp && resp.isSuccess) {
+			Common.alert('사용가능한 아이디입니다.');
+			$( selector).siblings('.warning').addClass('folding');
+		} else {
+			Common.alert('이미 사용중인 아이디입니다.', function() {
+				$( selector).val('');
+			});
+			$( selector).siblings('.warning').removeClass('folding');
+		}
 	} else {
-		Common.alert('이미 사용중인 아이디입니다.', function() {
-			$( selector).val('');
-		});
-		$( selector).siblings('.warning').removeClass('folding');
+		Common.alert('아이디를 입력해주세요.');
 	}
 }

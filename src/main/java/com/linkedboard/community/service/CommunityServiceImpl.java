@@ -14,8 +14,12 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	CommunityMapper mapper;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    void PasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 	
 	/**
 	 * 테이블명 생성
