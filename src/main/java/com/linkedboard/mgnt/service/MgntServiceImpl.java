@@ -22,8 +22,12 @@ public class MgntServiceImpl implements MgntService {
 	@Autowired 
 	FileMapper fileMapper;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    void PasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 	
 	private void setTableName( Map<String, Object> params) {
 		String username = params.getOrDefault("username", CommonUtils.getUser().getUsername()) + "";

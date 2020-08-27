@@ -29,8 +29,12 @@ public class MgntController {
 	@Autowired 
 	CommunityService communityService;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    void PasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
 	/**
 	 * 게시판내의 게시글 리스트
