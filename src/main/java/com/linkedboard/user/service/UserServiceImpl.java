@@ -20,11 +20,22 @@ import com.linkedboard.user.mapper.UserMapper;
 @Service
 public class UserServiceImpl implements UserService {
 	
+	UserService userService;
+	
+	@Autowired
+	public void setUserService( UserService userService) {
+		this.userService = userService; 
+	}
+	
 	@Autowired 
 	UserMapper mapper;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    void PasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
 	/**
 	 * 로그인처리
