@@ -34,8 +34,16 @@
 			</form>
 		</div>
 		<div class="btn-wrap mt10 al-center">
-			<a class="btn" href="/user/register">회원가입</a>
-			<a class="btn">비밀번호 찾기</a>
+			<a class="btn" href="javascript:registerPop();">회원가입</a>
+			<a class="btn" href="javascript:findPassword();">비밀번호 찾기</a>
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="/content/board/js/login-event.js"></script>
+<script type="text/javascript" src="/content/board/js/form-event.js"></script>
+<script type="text/html" id="pop-register">
+	<jsp:include page="../common/pop_register.jsp"/>
+</script>
+<script type="text/html" id="pop-password-change">
+	<jsp:include page="../common/pop_password_change.jsp"/>
+</script>
