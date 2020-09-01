@@ -140,4 +140,13 @@ public class UserServiceImpl implements UserService {
 			mapper.updateUserStatus(params);
 		}
 	}
+
+	@Override
+	public void updateUser(Map<String, Object> params) {
+		String password = params.getOrDefault("password", "") + "";
+		if( !password.equals("")) {
+			params.put("password", passwordEncoder.encode( password));
+		}
+		mapper.updateUser(params);
+	}
 }

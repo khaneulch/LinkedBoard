@@ -209,8 +209,10 @@ Common.editor = {
 }
 
 /* 윈도우 팝업 */
-Common.pop = function( url) {
+Common.pop = function( url, width, height) {
 	var specs = 'menubar=no,status=no,location=no,left=1,top=1';
+	if( width) specs += ',width=' + width;
+	if( height) specs += ',height=' + height;
 	window.open(url, '_blank', specs);
 }
 
