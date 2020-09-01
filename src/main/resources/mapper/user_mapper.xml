@@ -95,6 +95,9 @@
 				OR A.NAME LIKE CONCAT('%', #{totSrch}, '%') 
 			)
 		</if>
+		<if test="username != null and username != ''">
+			AND A.USERNAME = #{username}
+		</if>
 	</sql>
 	<select id="getUserCnt" parameterType="map" resultType="int">
 		SELECT COUNT(1) 
@@ -133,5 +136,28 @@
 				</otherwise>
 			</choose>
 		</where>
+	</update>
+	
+	<!-- 계정 정보 업데이트 -->
+	<update id="updateUser" parameterType="map">
+		UPDATE TB_USER SET
+			<trim prefixOverrides=",">
+				<if test="name != null and name != ''">
+					NAME = #{name}
+				</if>
+				<if test="password != null and password != ''">
+					, PASSWORD = #{password}
+				</if>
+				<if test="email != null and email != ''">
+					, EMAIL = #{email}
+				</if>
+				<if test="mobile != null and mobile != ''">
+					, MOBILE = #{mobile}
+				</if>
+				<if test="status != null and status != ''">
+					, STATUS = #{status}
+				</if>
+			</trim>
+		WHERE USERNAME = #{username}
 	</update>
 </mapper>

@@ -73,22 +73,6 @@ $(document).on('change ', '._rgb', function(e) {
 	}
 });
 
-/* 비밀번호 체크 */
-$(document).on('change ', '[type=password]', function(e) {
-	var pwd = $('#password').val();
-	var pwdChk = $('#password-chk').val();
-	if( pwd && pwd !== pwdChk) {
-		$('#password-chk').siblings('.warning').removeClass('folding');
-	} else {
-		$('#password-chk').siblings('.warning').addClass('folding');
-	}
-});
-
-/* 아이디 중복 */
-$(document).on('change ', '#username', function(e) {
-	$('#username').siblings('.warning').removeClass('folding');
-});
-
 /* 전체선택 체크박스 */
 $(document).on('click ', '.check-all', function(e) {
 	var $self = $(this);

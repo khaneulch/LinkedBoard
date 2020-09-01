@@ -19,4 +19,5 @@ public interface UserMapper {
 	public List<Map<String, Object>> selectUser(Map<String, Object> params);
 	public void updateUserLoginFailCount(Map<String, Object> params);
 	public void updateUserStatus(Map<String, Object> params);
+	public void updateUser(Map<String, Object> params);
 }

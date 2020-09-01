@@ -14,4 +14,5 @@ public interface UserService extends UserDetailsService{
 	void updateUserLoginFailCount(Map<String, Object> params);
 	void updateUserStatus(Map<String, Object> userMap);
 	void blockUser(Map<String, Object> params);
+	void updateUser(Map<String, Object> params);
 }
