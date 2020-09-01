@@ -70,15 +70,17 @@ ul.menu li.selected a:before {
 .p8{padding: 8px}
 
 .m0{margin: 0 !important}
-.ml5{margin-left: 5px}
-.mr5{margin-right: 5px}
-.mt0{margin-top: 0 !important}
-.mt3{margin-top: 3px}
-.mt6{margin-top: 6px}
-.mt10{margin-top: 10px}
-.mt25{margin-top: 25px}
-.mb5{margin-bottom:5px}
-.mb10{margin-bottom:10px}
+.ml5{margin-left: 5px !important}
+.ml300{margin-left: 300px !important}
+.ml450{margin-left: 450px !important}
+.mr5{margin-right: 5px !important}
+.mt0{margin-top: 0 !important !important}
+.mt3{margin-top: 3px !important}
+.mt6{margin-top: 6px !important}
+.mt10{margin-top: 10px !important}
+.mt25{margin-top: 25px !important}
+.mb5{margin-bottom:5px !important}
+.mb10{margin-bottom:10px !important}
 
 .b10{bottom: 10px}
 
@@ -242,3 +244,9 @@ pre.admin:before {
    display: inline-block;
    margin-right: 5px;
 }
+
+.table-input-fit input:not(.not-fit){
+	width: 100%;
+}
+
+.red {color: red;}
