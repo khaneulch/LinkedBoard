@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.invalidateHttpSession(true)
         	.and()
         	.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
+        http.headers().frameOptions().disable();
     }
 
     @Override
